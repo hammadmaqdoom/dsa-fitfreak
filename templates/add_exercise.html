@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+<br /><br /><br /><br /><br /><br />
+<div class="row">
+
+    <div class="col-lg-6">
+    <div class="login">
+        <div class="login-screen">
+            <div class="app-title">
+                <h1 class="headline">Select Exercise</h1>
+            </div>
+
+            <form method="POST" action="" class="login-form form-inline">
+              {% csrf_token %}
+              
+                {% for field in form %}
+                <h5 class="form-labels">
+                {{ field.label }}
+                </h5>
+                {{ field }}
+                 
+                {% endfor %}
+           
+                <input class="btn mt-2" type="submit" value="select">
+
+            </form>
+           
+        </div>
+        
+    </div>
+    </div>
+    <div class="col-lg-6 ">
+    <div class="login">
+        <div class="login-screen">
+              <form method="get">
+                  <h1 class="headline">{{ myFilter.form }}</h1>
+                  <button class="btn mt-2" type="submit">Search </button>
+              </form> 
+        </div>
+    </div>
+
+        <h1 class="headline"> All Exercise Items </h1>
+        <table class="table table-bordered text-center mt-3">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Exercise Name</th>
+                    <th scope="col">Time</th>
+                    <th scope="col">Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for food in exercise_items %}
+                <tr>
+                    <td>{{ food.name }}</td>
+                    <td>{{ food.time }}</td>
+                    <td>{{ food.quantity }}</td>
+                    
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>  
+    </div>
+</div>
+</div>
+
+{% comment %} <p>{{ fd }}</p>
+<br />
+<p>{{ s }}</p>
+<br /> {% endcomment %}
+
+{% endblock content %}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="section">
+<br /><br /><br /><br /><br /><br /><br />
+      <div class="container  align-items-center">
+        <div class="row justify-content-between">
+          <div class="col-md-6">
+					<p class="text-center headline" style="font-size:32px">Are you sure you want to delete {{ food }}</p>
+					<form method="POST" action="{% url 'delete_food' food.id %}" class="text-center">
+						{% csrf_token %}
+						<a href="{% url 'profile' %}">Cancel</a>
+						<input type="submit" name="Confirm">
+					</form>
+		  </div>
+		</div>
+	</div>
+</div>
+
+
+
+{% endblock content %}

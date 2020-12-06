@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="section">
+      <div class="container">
+        <div class=" ">
+            <h1 id="username" class="text-center mt-4 headline">Hi {{ request.user }}<sub><a href="{% url "logout" %}">(Logout)</a></sub></h1>
+
+
+            <div class="container mt-2">
+              <div class="row">
+                <div class="col-lg-6 col-sm-12 item ">
+                  <div class="card item-card card-block">
+                    <h5 class="card-title mt-3 mb-3 text-center">Total Calories Consumed Today</h5>
+                    <p class="card-text text-center">{{ total_calorie }}<br /><br /></p>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-sm-12 item">
+                  <div class="card item-card card-block mt-sm-2 mt-lg-0">
+                    <h5 class="card-title  mt-3 mb-3 text-center">Calorie Goal For Today</h5>
+                    <p class="card-text text-center">{{ calorie_goal }}<br /><br /></p> 
+                  </div>
+                </div>
+                <div class="col-lg-6 col-sm-12 item">
+                  <div class="card item-card card-block mt-sm-2 mt-lg-0">
+                    <h5 class="card-title  mt-3 mb-3 text-center">Height</h5>
+                    <p class="card-text text-center">{{ height }}<br /><br /></p> 
+                  </div>
+                </div>
+                <div class="col-lg-6 col-sm-12 item">
+                  <div class="card item-card card-block mt-sm-2 mt-lg-0">
+                    <h5 class="card-title  mt-3 mb-3 text-center"> Weight</h5>
+                    <p class="card-text text-center">{{ weight }}<br /><br /></p> 
+                  </div>
+                </div>
+                <div class="col-lg-6 col-sm-12 item">
+                  <div class="card item-card card-block mt-sm-2 mt-lg-0">
+                    <h5 class="card-title  mt-3 mb-3 text-center"> BMI</h5>
+                    <p class="card-text text-center">{{ bmi }}<br /><br /></p> 
+                </div>
+                </div>
+                <div class="col-lg-6 col-sm-12 item">
+                  <div class="card item-card card-block mt-sm-2 mt-lg-0">
+                    <h5 class="card-title  mt-3 mb-3 text-center"> BMR</h5>
+                    <p class="card-text text-center">{{ bmr }}<br /><br /></p> 
+                </div>
+                </div>
+              </div>
+              
+            </div>
+              
+                  <div class="card text-white text-center mt-4"  style="border-radius: 20px;">
+
+                    <div class="card-body">
+                      
+                      <p class="card-text text-center pt-3"> 
+                      
+                      {% if bmi < 18.5 %}
+                      You are <b>Underweight</b>.
+                      {% elif bmi >= 18.5 and bmi <= 24.9 %}
+                      You weight is <b>Normal</b>.
+                      {% elif bmi >= 25 and bmi <= 29.9 %}
+                      You are <b>Overweight</b>.
+                      {% elif bmi >= 30 and bmi <= 34.9 %}
+                      You are <b>Obese</b>.
+                      {% elif bmi >= 35 %}
+                      You are <b>Morbidly Obese</b> (Extreme).
+                      {% endif %} <br />
+                       According to your {{ exercise_level }} exercise level, daily calorie intake recommended for maintaining your current weight is {{ tdee }}.
+                       
+                      
+                      
+                      </p>
+                      
+                      <p class="card-text text-center pt-3">
+                      {% if calorie_goal_status > 0 %}
+                      You need  <b>{{ calorie_goal_status }}</b> calories more to reach your goal 
+                      {% elif calorie_goal == 0 %}
+                      <a href="{% url "profile" %}"> Enter your calorie goal for the day </a>
+                      {% else %}
+                      You surpassed your goal by <b>{{ over_calorie }}</b> calories 
+                      {% endif %} </p>
+
+                    </div>
+
+                  </div>
+
+            <h1 class="headline text-center mt-auto mb-auto">All Food Consumed Today </h1>
+            <div class="container table-responsive py-5"> 
+            <table class="table table-bordered table-hover">
+              <thead class="thead-light">
+                <tr class="text-center">
+                  <th scope="col">Food</th>
+                  <th scope="col">Calorie</th>
+                  <th scope="col">Count</th>
+                </tr>
+              </thead>
+              <tbody>
+            
+              
+                {% for food in food_selected_today %}
+                <tr class="text-center">
+                  <td> {{ food.food.name }}</td>
+                  <td> {{ food.calorie_amount }}</td>
+                  <td> {{ food.amount }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+{% endblock content %}

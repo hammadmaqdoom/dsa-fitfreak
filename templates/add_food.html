@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="container">
+<br /><br /><br /><br /><br /><br />
+<div class="row">
+
+    <div class="col-lg-6">
+    <div class="login">
+        <div class="login-screen">
+            <div class="app-title">
+                <h1 class="headline">Add Food</h1>
+                <p> Please add the Food if it's not available when you search for it! </p>
+            </div>
+
+            {% comment %} <form method="POST" action="" class="login-form form-inline">
+              {% csrf_token %}
+              
+                {% for field in form %}
+                <h5 class="form-labels">
+                {{ field.label }} 
+                </h5><br />
+                {{ field }}<br />
+                 
+                {% endfor %}
+           
+                <input class="btn mt-2" type="submit" value="select">
+
+            </form> {% endcomment %}
+           <form class="form" method="post">
+                {% csrf_token %}
+                
+                {% for field in form.visible_fields %}
+                    <div class="form-group">
+                    {{ field.label_tag }}
+
+                    {% if form.is_bound %}
+                        {% if field.errors %}
+                        {% render_field field class="form-control is-invalid" %}
+                        {% for error in field.errors %}
+                            <div class="invalid-feedback">
+                            {{ error }}
+                            </div>
+                        {% endfor %}
+                        {% else %}
+                        {% render_field field class="form-control is-valid" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field field class="form-control input-group input-group-prepend" %}
+                    {% endif %}
+
+                    {% if field.help_text %}
+                        <small class="form-text text-muted">{{ field.help_text }}</small>
+                    {% endif %}
+                    </div>
+                {% endfor %}
+                <button type="submit" class="btn btn-simple btn-primary  btn-round float-right"><i class="tim-icons icon-send"></i>  Add</button>
+            </form>
+        </div>
+        
+    </div>
+    </div>
+    <div class="col-lg-6 ">
+    <div class="login">
+        <div class="login-screen">
+              <form method="get">
+                  <h1 class="headline">{{ myFilter.form }}</h1>
+                  <button class="btn mt-2" type="submit">Search </button>
+              </form> 
+        </div>
+    </div>
+
+        <h1 class="headline"> All Food Items </h1>
+        <table class="table table-bordered text-center mt-3">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Food Name</th>
+                    <th scope="col">Calories</th>
+                    <th scope="col">Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for food in food_items %}
+                <tr>
+                    <td>{{ food.name }}</td>
+                    <td>{{ food.calorie }}</td>
+                    <td>{{ food.quantity }}</td>
+                    
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>  
+    </div>
+</div>
+</div>
+
+{% comment %} <p>{{ fd }}</p>
+<br />
+<p>{{ c }}</p>
+<br /> {% endcomment %}
+
+{% endblock content %}
