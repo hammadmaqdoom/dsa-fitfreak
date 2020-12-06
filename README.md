@@ -1,2 +1,2 @@
-# Calorie-Counter-App
-This is a calorie counter app made with Django.
+# Fitness-App
+This is a Fitness app made with Django.
